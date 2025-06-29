@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinHealth Bot - Hospital Price Comparison Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-icon">⚕️</span>
+                    FinHealth Bot
+                </h1>
+                <p class="tagline">Compare hospital prices and insurance coverage instantly</p>
+            </div>
+        </header>
+
+        <!-- Main Chat Interface -->
+        <main class="main-content">
+                <div class="chat-container">
+                    <!-- Initial Form -->
+                    <form class="initial-form" id="initialForm">
+                        <p>Please provide the initial information to help us assist you better:</p>
+                        <label for="formLocation">City and State:</label>
+                        <input type="text" id="formLocation" placeholder="e.g., Dallas, Texas" required>
+                        <label for="formProcedure">Medical Procedure:</label>
+                        <select id="formProcedure">
+                            <option value="ECG">ECG</option>
+                            <option value="X-ray">X-ray</option>
+                            <option value="MRI">MRI</option>
+                            <option value="Blood Tests">Blood Tests</option>
+                        </select>
+                        <label for="formInsurance">Insurance Plan:</label>
+                        <input type="text" id="formInsurance" placeholder="e.g., Aetna">
+                        <button type="submit">Submit</button>
+                    </form>
+                    <!-- Chat Messages -->
+                    <div class="chat-messages" id="chatMessages" style="display:none;">
+                        <div class="message bot-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p>Hi! I'm here to help you save money on healthcare costs and find the best medical care in your area.</p>
+                                <p>I can help you:</p>
+                                <ul>
+                                    <li>• Understand what medical tests you might need based on your symptoms</li>
+                                    <li>• Find the cheapest hospitals and clinics near you</li>
+                                    <li>• Figure out if using insurance or paying cash saves you more money</li>
+                                </ul>
+                                <p>To get started, <strong>what city are you in?</strong> This helps me find the best options near you.</p>
+                                <p>You can also just tell me what's bothering you health-wise, and I'll guide you from there! 😊</p>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="sendQuickMessage('I have chest pain, what should I do?')">
+                        💔 Chest Pain Analysis
+                    </button>
+                    <button class="action-btn" onclick="requestInsuranceComparison()">
+                        🏥 Insurance Comparison
+                    </button>
+                    <button class="action-btn" onclick="sendQuickMessage('I need price comparison for medical procedures')">
+                        🩸 Price Comparison
+                    </button>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <input 
+                            type="text" 
+                            id="chatInput" 
+                            class="chat-input" 
+                            placeholder="Describe your symptoms or ask about hospital prices..."
+                            maxlength="500"
+                        >
+                        <button id="sendButton" class="send-button" onclick="sendMessage()">
+                            <span class="send-icon">➤</span>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <span class="disclaimer">⚠️ This is for informational purposes only. Always consult healthcare professionals.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <div class="panel-section">
+                    <h3>💡 How it works</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Describe your symptoms</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Get condition prediction</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Compare hospital prices</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <span class="step-text">Analyze insurance coverage</span>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>📊 Popular Procedures</h3>
+                    <div class="procedure-list">
+                        <div class="procedure-item" onclick="requestProcedureLocation('ECG')">
+                            <span>ECG</span>
+                            <span class="price">$150-400</span>
+                        </div>
+                        <div class="procedure-item" onclick="requestProcedureLocation('X-ray')">
+                            <span>X-ray</span>
+                            <span class="price">$150-400</span>
+                        </div>
+                        <div class="procedure-item" onclick="requestProcedureLocation('MRI')">
+                            <span>MRI</span>
+                            <span class="price">$1200-3000</span>
+                        </div>
+                        <div class="procedure-item" onclick="requestProcedureLocation('Blood Tests')">
+                            <span>Blood Tests</span>
+                            <span class="price">$100-300</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>🏥 Features</h3>
+                    <ul class="features-list">
+                        <li>✓ Real-time price comparison</li>
+                        <li>✓ Insurance coverage analysis</li>
+                        <li>✓ Emergency hospital finder</li>
+                        <li>✓ Cash discount calculator</li>
+                        <li>✓ Wait time estimates</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loadingIndicator">
+            <div class="loading-spinner"></div>
+            <span>Analyzing...</span>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
