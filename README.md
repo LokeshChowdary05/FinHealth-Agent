@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🏥 FinHealth Agent - AI-Powered Healthcare Cost Comparison Platform
 
 <div align="center">
