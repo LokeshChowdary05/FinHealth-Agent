@@ -137,21 +137,37 @@ Comprehensive coverage analysis for informed decision-making:
 
 ```
 FinHealth-Agent/
+
 ├── app.py                          # Main Flask application
+
 ├── medical_analyzer.py             # AI symptom analysis engine
+
 ├── hospital_data.py               # Hospital data management
+
 ├── insurance_analyzer.py          # Insurance coverage engine
+
 ├── conversation_manager.py        # Advanced chat processing
+
 ├── static/                        # Frontend assets
+
 │   ├── styles.css                 # Professional styling
+
 │   └── script.js                  # Dynamic interactions
+
 ├── templates/                     # HTML templates
+
 │   └── index.html                 # Main application interface
+
 ├── data/                          # Healthcare databases
+
 │   ├── nationwide_hospital_data.json
+
 │   └── hospital_pricing_data.json
+
 ├── requirements.txt               # Python dependencies
+
 ├── .env.example                   # Environment variables template
+
 └── docs/                          # Comprehensive documentation
 ```
 
