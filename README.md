@@ -233,5 +233,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ If this project helped you or you find it interesting, please give it a star on GitHub!**
 =======
-Let me know if you want further customization or additional sections!
->>>>>>> 31bbd4480f2c5de4e1445ef57210676da68f9e25
+If you've found any issues or want to do any enhancements Feel Free to email : lokeshchowdary.pl@gmail.com
+
